@@ -1,0 +1,321 @@
+::selection {
+  background-color: rgba(127, 165, 168, 0.737);
+}
+/*----Navbar----*/
+.navbar {
+  background-color: rgba(30, 193, 205, 0.737);
+  /* height: 80px; */
+  /* top: 0;
+  position: sticky;
+  left: 0;
+  z-index: 1000; */
+}
+.bi-shop-window {
+  cursor: pointer;
+}
+/* @media screen and (min-width: 760px) and (max-width: 1000px) {
+  .navbar {
+    position: relative;
+    position: sticky;
+  }
+  .navbar .shop-user-icon {
+    position: absolute;
+    top: 20px;
+    left: 80%;
+  }
+} */
+.navbar-nav > .dropdown:hover > .dropdown-menu {
+  display: block;
+}
+/*----------offcanvasRight--------*/
+#offcanvasRight {
+  width: 30%;
+}
+.offcanvas-body {
+  position: relative;
+}
+.offcanvas-body > .card-item-list img {
+  width: 45px;
+}
+.offcanvas-body > .checkout {
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.offcanvas-body > .card-item-list {
+  max-height: 580px;
+  overflow-y: auto;
+  padding: 10px;
+}
+.card-item-list::-webkit-scrollbar {
+  display: none;
+}
+@media screen and (min-width: 760px) and (max-width: 1000px) {
+  #offcanvasRight {
+    width: 50%;
+  }
+  .offcanvas-body > .card-item-list img {
+    width: 70px;
+  }
+  .offcanvas-body > .card-item-list {
+    max-height: 90%;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  #offcanvasRight {
+    width: 100%;
+  }
+  .offcanvas-body > .card-item-list img {
+    width: 65px;
+  }
+  .offcanvas-body > .card-item-list {
+    max-height: 90%;
+  }
+}
+/*---------- offcanvasRight end --------*/
+/*------Slider start------*/
+.carousel-item img {
+  height: 500px;
+  object-fit: cover;
+  width: 100%;
+}
+
+@media screen and (min-width: 760px) and (max-width: 1000px) {
+  .carousel-item img {
+    height: 500px;
+    object-fit: cover;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  .carousel-item img {
+    height: 250px;
+    object-fit: cover;
+  }
+}
+/*------Slider end------*/
+
+/*------Categories start------*/
+.categaries .each-card {
+  border: none;
+  overflow: hidden;
+}
+
+.each-card img {
+  transform: scale(1);
+  transition: 0.5s ease;
+  border-radius: 24px;
+}
+.each-card:hover img {
+  transform: scale(1.1);
+}
+.card {
+  /* position: relative; */
+  overflow: hidden;
+}
+.each-card {
+  border-radius: 24px;
+}
+@media screen and (min-width: 760px) and (max-width: 1000px) {
+  .each-card img {
+    height: 400px;
+    object-fit: cover;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  .each-card img {
+    height: 250px;
+    object-fit: cover;
+  }
+}
+/*--------All product--------*/
+
+.product .card img {
+  /* height: 280px; */
+  width: 100%;
+  object-fit: contain;
+}
+
+/* .card-body {
+  height: 100px;
+  background-color: antiquewhite;
+} */
+
+.card > .detail {
+  height: 35%;
+  width: 100%;
+  bottom: -50%;
+  opacity: 0.8;
+  z-index: 10;
+  position: absolute;
+  background-color: rgb(231, 231, 231);
+  transition: bottom 0.7s ease-in-out;
+}
+.detail i {
+  padding: 18px;
+  color: black;
+  opacity: 1;
+  font-size: 20px;
+  font-weight: bold;
+}
+.card:hover > .detail {
+  bottom: 0;
+  /* height: 35%; */
+  width: 100%;
+}
+@media screen and (min-width: 760px) and (max-width: 1000px) {
+  .product .card img {
+    height: 160px;
+  }
+  .product .card-body h5 {
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  .product .card img {
+    height: 120px;
+  }
+  .product .card-body h5 {
+    font-size: 12px;
+  }
+  .card:hover > .detail {
+    bottom: 0;
+    /* height: 100px; */
+    width: 100%;
+  }
+  .detail i {
+    font-size: 16px;
+  }
+  .card-body .badge {
+    padding: 3px 5px;
+    font-size: 9px;
+  }
+}
+
+/* --------- Modal start ------------*/
+.modal-dialog {
+  max-width: 45%;
+  /* in modal width can use only max-width */
+}
+.img-modal {
+  /* width: 400px; */
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+}
+.qty-control button {
+  padding: 3px 12px;
+  font-weight: 900;
+}
+.qty-control button:active {
+  transform: scale(1.1);
+}
+.qty-control input {
+  padding: 3px;
+  outline: none;
+  width: 55px;
+  text-align: center;
+}
+.qty-control > .add-to-card {
+  /* padding: 5px 15px; */
+  font-weight: 900;
+}
+.contact-us p {
+  font-size: 18px;
+}
+.subscript {
+  border-radius: 4px;
+  padding: 10px;
+  outline: none;
+  border: 1px solid gray;
+}
+.subscribe {
+  padding: 10px;
+}
+.contact-icon {
+  margin-top: 24px;
+}
+
+@media screen and (min-width: 760px) and (max-width: 1000px) {
+  .modal-dialog {
+    max-width: 80%;
+  }
+  .img-modal {
+    height: 400px;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  .modal-dialog {
+    max-width: 100%;
+  }
+  .img-modal {
+    height: 240px;
+    object-fit: contain;
+  }
+  .qty-control input {
+    width: 35px;
+  }
+  .qty-control button {
+    padding: 3px 5px;
+  }
+  .contact-us p {
+    font-size: 14px;
+  }
+  .subscript {
+    padding: 5px;
+  }
+  .subscribe {
+    padding: 5px;
+  }
+  .contact-icon a {
+    padding: 0 8px;
+  }
+  .model-right {
+    margin-top: 24px;
+  }
+}
+
+/* ----------- Modal end -------------*/
+/* -------------------Footer----------------- */
+.footer {
+  width: 100%;
+  /* height: 400px; */
+  background-color: rgb(55, 66, 78);
+  color: white;
+}
+.footer > .container img {
+  width: 90px;
+  /* background-color: aliceblue; */
+}
+.footer ul li,
+a {
+  list-style: none;
+  text-decoration: none;
+  color: white;
+}
+.list-style li {
+  font-weight: 600;
+}
+.list-style a {
+  font-size: 16px;
+  font-weight: 300;
+}
+.blox-2 > .list-style li a,
+.blox-3 > .list-style li a {
+  /* color: rgb(80, 175, 49); */
+  color: rgb(115, 137, 165);
+}
+.blox-3 li,
+.blox-2 li {
+  margin-top: 7px;
+}
+.contact-icon a {
+  padding: 0 12px 0 24px;
+}
+.blox-2 .vertical-line,
+.blox-3 .vertical-line,
+.blox-4 .vertical-line {
+  border-left: 1px solid rgba(248, 248, 255, 0.368);
+  height: 200px;
+  position: absolute;
+}
