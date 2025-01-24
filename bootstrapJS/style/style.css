@@ -282,6 +282,7 @@
   /* height: 400px; */
   background-color: rgb(55, 66, 78);
   color: white;
+  position: relative;
 }
 .footer > .container img {
   width: 90px;
@@ -318,4 +319,31 @@ a {
   border-left: 1px solid rgba(248, 248, 255, 0.368);
   height: 200px;
   position: absolute;
+}
+.horizontal-line {
+  width: 402%;
+  transform: translateX(-37.7%);
+  border-top: 1px solid rgba(248, 248, 255, 0.368);
+}
+.horizontal-line2 {
+  width: 50%;
+  transform: translateX(50%);
+  border-top: 1px solid rgba(248, 248, 255, 0.368);
+}
+@media screen and (min-width: 760px) and (max-width: 1000px) {
+  .last-col-footer {
+    margin-bottom: 42px;
+    text-align: center;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  .footer {
+    text-align: center;
+  }
+  .footer .list-style {
+    transform: translateX(-5%);
+  }
+  .footer .horizontal-line {
+    display: block;
+  }
 }
