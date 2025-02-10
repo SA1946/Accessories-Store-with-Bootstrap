@@ -347,3 +347,72 @@ a {
     display: block;
   }
 }
+
+/*------------------------------------------ */
+/*-----------page single view detail--------*/
+.carousel-customize .carousel-item img {
+  height: 580px;
+  object-fit: cover;
+  object-position: top;
+}
+@media screen and (min-width: 320px) and (max-width: 759px) {
+  .carousel-customize .carousel-item img {
+    height: 380px;
+    object-fit: cover;
+    object-position: top;
+  }
+  .detail-single-view,
+  .p-d {
+    padding: 0;
+  }
+}
+@media screen and (min-width: 760px) and (max-width: 1000px) {
+  .carousel-customize .carousel-item img {
+    height: 480px;
+    object-fit: contain;
+    object-position: top;
+  }
+  .detail-single-view,
+  .p-d {
+    padding: 0;
+  }
+}
+
+.small-product {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.small-product:hover {
+  opacity: 1;
+}
+
+.small-slider img {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+}
+.color-check .color {
+  padding: 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 2px;
+  /* border: 1px solid rgb(130, 128, 128); */
+}
+.detail-add-cart {
+  margin-top: 50px;
+}
+
+.product-review .nav-link.active {
+  color: rgb(255, 255, 255) !important; /* Change text color */
+  background-color: rgb(28, 28, 27) !important; /* Change background color */
+}
+#pills-review-tab:hover,
+#pills-detail-tab:hover {
+  background-color: rgb(28, 28, 27);
+  color: white;
+}
+.star-blox i {
+  font-size: 20px;
+  color: gold;
+  cursor: pointer;
+}
