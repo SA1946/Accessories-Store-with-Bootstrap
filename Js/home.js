@@ -12,7 +12,7 @@ const categories = [
     name: "Computer",
     stock: 50,
     description: "Laptops and desktops",
-    // img: "../image/computers-store.jpg",
+    // img: "./image/computers-store.jpg",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const categories = [
     ],
     stock: 20,
     description: "Smartwatches and fitness trackers",
-    // img: "../image/watch3.webp",
+    // img: "./image/watch3.webp",
   },
   {
     id: 4,
@@ -97,22 +97,22 @@ const slides = [
   {
     id: 1,
     name: "watch",
-    img: "../image/watch1.jpg",
+    img: "./image/watch1.jpg",
   },
   {
     id: 2,
     name: "watch_for_women",
-    img: "../image/watch-for-women1.webp",
+    img: "./image/watch-for-women1.webp",
   },
   {
     id: 3,
     name: "computer",
-    img: "../image/computer-img.jpg",
+    img: "./image/computer-img.jpg",
   },
   {
     id: 4,
     name: "clothes",
-    img: "../image/clothes-img.jpg",
+    img: "./image/clothes-img.jpg",
   },
 ];
 
@@ -144,11 +144,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/iphone16 plus-Silicone-case-wth-Magesafe.png",
+        img: "./image/iphone16 plus-Silicone-case-wth-Magesafe.png",
       },
       {
         id: 2,
-        img: "../image/iphone16plus.png",
+        img: "./image/iphone16plus.png",
       },
     ],
     color: [
@@ -175,11 +175,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/Smart-Folio-for-iPade_Mini7.png",
+        img: "./image/Smart-Folio-for-iPade_Mini7.png",
       },
       {
         id: 2,
-        img: "../image/iphone16plus.png",
+        img: "./image/iphone16plus.png",
       },
     ],
     color: [
@@ -206,11 +206,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/Tecno Spark 30C.png",
+        img: "./image/Tecno Spark 30C.png",
       },
       {
         id: 2,
-        img: "../image/iphone16plus.png",
+        img: "./image/iphone16plus.png",
       },
     ],
     color: [
@@ -237,11 +237,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/iphone16plus.png",
+        img: "./image/iphone16plus.png",
       },
       {
         id: 2,
-        img: "../image/iphone16plus.png",
+        img: "./image/iphone16plus.png",
       },
     ],
     color: [
@@ -268,11 +268,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/vivo V40 Lite.png",
+        img: "./image/vivo V40 Lite.png",
       },
       {
         id: 2,
-        img: "../image/iphone16plus.png",
+        img: "./image/iphone16plus.png",
       },
     ],
     color: [
@@ -299,11 +299,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/iPhone 16e.png",
+        img: "./image/iPhone 16e.png",
       },
       {
         id: 2,
-        img: "../image/iPhone 16e-white.png",
+        img: "./image/iPhone 16e-white.png",
       },
     ],
     color: [
@@ -330,11 +330,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/iPhone 16 Pro Max-Black.png",
+        img: "./image/iPhone 16 Pro Max-Black.png",
       },
       {
         id: 2,
-        img: "../image/iPhone 16 Pro Max-Titanium.png",
+        img: "./image/iPhone 16 Pro Max-Titanium.png",
       },
     ],
     color: [
@@ -361,11 +361,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/iPhone 16 Pro-Titanium.png",
+        img: "./image/iPhone 16 Pro-Titanium.png",
       },
       {
         id: 2,
-        img: "../image/iPhone 16 Pro-Black.png",
+        img: "./image/iPhone 16 Pro-Black.png",
       },
     ],
     color: [
@@ -393,11 +393,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/ROG Strix G18 G814JU- Green 2025.jpg",
+        img: "./image/ROG Strix G18 G814JU- Green 2025.jpg",
       },
       {
         id: 2,
-        img: "../image/Oppo Reno13 F-Purple.png",
+        img: "./image/Oppo Reno13 F-Purple.png",
       },
     ],
     color: [
@@ -425,11 +425,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/ASUS TUF FA401WV- 2025.jpg",
+        img: "./image/ASUS TUF FA401WV- 2025.jpg",
       },
       {
         id: 2,
-        img: "../image/Oppo A5 Pro​ (2025)-Brown.png",
+        img: "./image/Oppo A5 Pro​ (2025)-Brown.png",
       },
     ],
     color: [
@@ -457,11 +457,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/MSI KATANA 17 B13VGK-KH-2024.jpg",
+        img: "./image/MSI KATANA 17 B13VGK-KH-2024.jpg",
       },
       {
         id: 2,
-        img: "../image/Oppo A60-Midnight.png",
+        img: "./image/Oppo A60-Midnight.png",
       },
     ],
     color: [
@@ -489,11 +489,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/Vector 16 HX A14VHG.jpg",
+        img: "./image/Vector 16 HX A14VHG.jpg",
       },
       {
         id: 2,
-        img: "../image/Oppo A60-Midnight.png",
+        img: "./image/Oppo A60-Midnight.png",
       },
     ],
     color: [
@@ -521,11 +521,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/MACBOOK PRO 16.2INCH.png",
+        img: "./image/MACBOOK PRO 16.2INCH.png",
       },
       {
         id: 2,
-        img: "../image/Oppo A3x-Nebula Red.png",
+        img: "./image/Oppo A3x-Nebula Red.png",
       },
     ],
     color: [
@@ -553,11 +553,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/Apple Watch Ultra 2 with Ocean Band.webp",
+        img: "./image/Apple Watch Ultra 2 with Ocean Band.webp",
       },
       {
         id: 2,
-        img: "../image/Oppo A3x-Nebula Red.png",
+        img: "./image/Oppo A3x-Nebula Red.png",
       },
     ],
     color: [
@@ -585,11 +585,11 @@ const All_Products = [
     img: [
       {
         id: 1,
-        img: "../image/Carlington Elite Ladies.webp",
+        img: "./image/Carlington Elite Ladies.webp",
       },
       {
         id: 2,
-        img: "../image/Oppo A3x-Nebula Red.png",
+        img: "./image/Oppo A3x-Nebula Red.png",
       },
     ],
     color: [
