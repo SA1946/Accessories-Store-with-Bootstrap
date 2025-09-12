@@ -4,6 +4,7 @@ document.addEventListener("click", function (event) {
     // event.stopPropagation(); // Prevent the product_model from being called
     const productId = event.target.getAttribute("data-product-id");
     showproductDetail(productId);
+    console.log(productId);
     //----close modal with Jquery----
     $("#view-product").modal("hide");
   }
