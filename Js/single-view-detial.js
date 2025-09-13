@@ -1,30 +1,58 @@
-document.addEventListener("click", function (event) {
-  if (event.target.classList.contains("view-detail")) {
-    event.preventDefault();
-    // event.stopPropagation(); // Prevent the product_model from being called
-    const productId = event.target.getAttribute("data-product-id");
-    showproductDetail(productId);
-    console.log(productId);
-    //----close modal with Jquery----
-    $("#view-product").modal("hide");
-  }
-});
-function showproductDetail(productId) {
-  let productFind = All_Products.find((product) => product.id == productId);
-  if (!productFind) return;
-  console.log(productFind);
-  //   hide the maincontainer
-  const mainContainer = document.querySelector(".container");
-  mainContainer.classList.add("d-none");
-  //   show the product detail container
-  let container2 = document.querySelector(".for-container-height");
-  if (!container2) {
-    // container2 = document.createElement("div");
-    // container2.className = "container mt-3";
-    container2.classList.add("for-container-height , container mt-3");
-  }
-  container2.innerHTML = `
-            <div class="row m-0 p-0">
+// document.addEventListener("click", function (event) {
+//   if (event.target.classList.contains("view-detail")) {
+//     event.preventDefault();
+//     // event.stopPropagation(); // Prevent the product_model from being called
+//     const productId = event.target.getAttribute("data-product-id");
+
+//     showproductDetail(productId);
+//     // console.log(productId);
+
+//     //----close modal with Jquery----
+//     $("#view-product").modal("hide");
+//   }
+// });
+// function showproductDetail(productId) {
+//   let productFind = All_Products.find((product) => product.id == productId);
+//   if (!productFind) return;
+//   console.log(productFind);
+//   hide the maincontainer
+// const mainContainer = document.querySelector(".container");
+// mainContainer.classList.add("d-none");
+//   show the product detail container
+// let container2 = document.querySelector(".for-container-height");
+// if (!container2) {
+// container2 = document.createElement("div");
+// container2.className = "container mt-3";
+// container2.classList.add("for-container-height , container mt-3");
+// }
+//   container2.innerHTML = `
+//             <div class="row m-0 p-0">
+//         <div class="col-lg-5 col-md-12 col-12">
+//           <!------Sldier----->
+
+import { All_Products } from "./data/data.js";
+
+function getUrlParameter(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  console.log(urlParams);
+  return urlParams.get(name);
+}
+
+function initializeSingleProduct() {
+  const top_single_view_product = document.querySelector(
+    ".top-single-view-product"
+  );
+  const productId = getUrlParameter("productId");
+
+  if (productId && All_Products !== "undefined") {
+    let findProduct = All_Products.find((product) => product.id == productId);
+
+    if (findProduct) {
+      console.log(findProduct);
+    }
+
+    let top_view = `
+          
         <div class="col-lg-5 col-md-12 col-12">
           <!------Sldier----->
           <div
@@ -69,44 +97,17 @@ function showproductDetail(productId) {
             <div class="carousel-inner carousel-customize shadow-sm">
               <div class="carousel-item active" data-bs-interval="5000">
                 <img
-                  src="../image/iphone16plus.png"
+                  src="${findProduct.img[0].img}"
                   class="d-block w-100"
                   alt="..."
                 />
               </div>
-              <div class="carousel-item" data-bs-interval="3000">
+              <div class="carousel-item  data-bs-interval="5000">
                 <img
-                  src="../image/Smart-Folio-for-iPade_Mini7.png"
+                  src="${findProduct.img[1].img}"
                   class="d-block w-100"
                   alt="..."
                 />
-              </div>
-              <div class="carousel-item" data-bs-interval="3000">
-                <img
-                  src="../image/iphone16 plus-Silicone-case-wth-Magesafe.png"
-                  class="d-block w-100"
-                  alt="..."
-                />
-              </div>
-              <div class="carousel-item" data-bs-interval="3000">
-                <img
-                  src="../image/vivo V40 Lite.png"
-                  class="d-block w-100"
-                  alt="..."
-                />
-              </div>
-              <div class="carousel-item">
-                <img
-                  src="../image/Tecno Spark 30C.png"
-                  class="d-block w-100"
-                  alt="..."
-                />
-                <!-- <div class="carousel-caption d-none d-md-block">
-                  <h5>Third slide label</h5>
-                  <p>
-                    Some representative placeholder content for the third slide.
-                  </p>
-                </div> -->
               </div>
             </div>
             <button
@@ -147,106 +148,58 @@ function showproductDetail(productId) {
               aria-label="Slide 1"
             >
               <div class="card">
-                <img src="../image/iphone16plus.png" alt="" />
+                <img src=" ${findProduct.img[0].img} " alt="" />
+                
               </div>
             </div>
             <div
-              class="col-2 small-product m-0 p-1"
+              class="col-2 small-product m-0 p-1 active"
               type="button"
               data-bs-target="#carouselExampleDark"
               data-bs-slide-to="1"
+              aria-current="true"
               aria-label="Slide 2"
             >
               <div class="card">
-                <img src="../image/Smart-Folio-for-iPade_Mini7.png" alt="" />
+                <img src=" ${findProduct.img[1].img} " alt="" />
+                
               </div>
             </div>
-            <div
-              class="col-2 small-product m-0 p-1"
-              type="button"
-              data-bs-target="#carouselExampleDark"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            >
-              <div class="card">
-                <img
-                  src="../image/iphone16 plus-Silicone-case-wth-Magesafe.png"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div
-              class="col-2 small-product m-0 p-1"
-              type="button"
-              data-bs-target="#carouselExampleDark"
-              data-bs-slide-to="3"
-              aria-label="Slide 4"
-            >
-              <div class="card">
-                <img src="../image/vivo V40 Lite.png" alt="" />
-              </div>
-            </div>
-            <div
-              class="col-2 small-product m-0 p-1"
-              type="button"
-              data-bs-target="#carouselExampleDark"
-              data-bs-slide-to="4"
-              aria-label="Slide 5"
-            >
-              <div class="card">
-                <img src="../image/Tecno Spark 30C.png" alt="" />
-              </div>
-            </div>
+
           </div>
         </div>
         <!--------detail about phone----->
         <div class="col-lg-7 col-md-12 col-12 detail-single-view">
           <div class="card border-0 p-4">
-            <h4>Iphone 16 Plus clear case with Magsafe</h4>
+            <h4> ${findProduct.name} </h4>
             <p>
-              Phone 16 Plus Clear Case with MagSafe for sell
-              <del class="badge bg-secondary">1600$</del> , but now
-              <span class="badge bg-success">1200$</span>
-              Thin, light, and easy to grip — this Apple-designed case shows off
-              the brilliant colored finish of iPhone 16 Plus while providing
-              extra protection, Crafted with a blend of optically clear
-              polycarbonate and flexible materials. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Distinctio magnam debitis omnis.
-              Quae amet nam iure magnam a tenetur cumque voluptate, culpa nemo,
-              labore harum fugiat cupiditate dicta sed distinctio ut eveniet
-              iusto! Dolorem reprehenderit minus sint, voluptate vero
-              consequatur.
+              ${findProduct.description}
             </p>
 
             <div class="block-qty d-flex align-items-center my-4">
-              <h5 class="opacity-75">Quantity :</h5>
+              <h5 class="opacity-75">Quantity :  </h5>
               <div class="ps-2 qty-control ms-2">
-                <button class="border-0 bg-secondary text-light">-</button>
-                <input type="text" value="1" readonly />
-                <button class="border-0 bg-success text-light">+</button>
+                <button class=" decrement border-0 bg-secondary text-light">-</button>
+                <input class="qty-input" type="text" value="1" readonly />
+                <button class=" increment border-0 bg-success text-light">+</button>
               </div>
             </div>
 
             <div class="color-check d-flex align-items-center">
               <h5 class="opacity-75">Color :</h5>
               <div class="row p-0 m-0 ms-2">
-                <div class="color col-lg-1 col-1 bg-black"></div>
-                <div class="color col-lg-1 col-1 bg-secondary"></div>
-                <div class="color col-lg-1 col-1 bg-danger"></div>
-                <div
-                  style="background-color: bisque"
-                  class="color col-lg-1 col-1"
-                ></div>
+                <div class="color col-lg-1 col-1 bg-${findProduct.color[0].color}"></div>
+                <div class="color col-lg-1 col-1 bg-${findProduct.color[1].color}"></div>    
               </div>
             </div>
 
             <div class="brand d-flex align-items-center mt-3">
               <h5 class="opacity-75">Brand :</h5>
-              <p class="ms-2 fw-bold mt-2">I love U Mauh Muah 😂</p>
+              <p class="ms-2 fw-bold mt-2"> ${findProduct.brand} </p>
             </div>
             <div class="Gategory d-flex align-items-center">
               <h5 class="opacity-75">Gategory :</h5>
-              <p class="ms-2 fw-bold mt-2">Phone</p>
+              <p class="ms-2 fw-bold mt-2"> ${findProduct.category} </p>
             </div>
 
             <div class="add-to-card">
@@ -256,8 +209,45 @@ function showproductDetail(productId) {
             </div>
           </div>
         </div>
-      </div>
-  `;
+      
 
-  // alert("Tver ot torn hx te😭😭");
+    `;
+
+    top_single_view_product.innerHTML = top_view;
+  }
+
+  // ------------ qty control -------------
+  const qtyInput = top_single_view_product.querySelector(".qty-input");
+  let productFind = All_Products.find((product) => product.id == productId);
+  const incrementBtn = top_single_view_product.querySelector(".increment");
+  const decrementBtn = top_single_view_product.querySelector(".decrement");
+
+  incrementBtn.addEventListener("click", () => {
+    
+    if (productFind.stock <= 0) {
+      // incrementBtn.disabled = true;
+      showAlert(productFind.name + "is out of stock", false);
+      return; // exit the function if stock is 0
+    } else if (productFind.stock <= parseInt(qtyInput.value)) {
+      showAlert(
+        productFind.name +
+          " Has only " +
+          productFind.stock +
+          " ,left in stock.",
+        false // on true or false to show alert bg color in Toastify (dak kr ban ot k ban depend on u)
+      );
+
+      return;
+    } else {
+      qtyInput.value = parseInt(qtyInput.value) + 1;
+    }
+  });
+  decrementBtn.addEventListener("click", () => {
+    if (parseInt(qtyInput.value) > 1) {
+      // if statement to prevent negative qty
+      qtyInput.value = parseInt(qtyInput.value) - 1;
+    }
+  });
 }
+
+initializeSingleProduct();
