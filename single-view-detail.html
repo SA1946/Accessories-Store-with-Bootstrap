@@ -14,49 +14,20 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <!-- toastify-js -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <!-- ---------- -->
   </head>
   <body>
     <!---------Navbar---------->
     <special-navbar></special-navbar>
 
     <!-- offcanvas-Right-start ---->
-    <!-- <button
-      class="btn btn-primary"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasRight"
-      aria-controls="offcanvasRight"
-    >
-      Toggle right offcanvas 
-    </button> -->
-    <div
-      class="offcanvas offcanvas-end"
-      tabindex="-1"
-      id="offcanvasRight"
-      aria-labelledby="offcanvasRightLabel"
-    >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">
-          Your added Card
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <!-----List item----->
-        <div class="card-item-list"></div>
-
-        <div class="checkout">
-          <button class="btn text-light btn-secondary btn-outline-success">
-            Product Checkout
-          </button>
-        </div>
-      </div>
-    </div>
+    <special-offcanvas></special-offcanvas>
     <!-- offcanvas-Right-end ---->
 
     <!------Container-start------>
@@ -443,9 +414,13 @@
     <!---------Footer end--------->
 
     <script type="module" src="./Js/single-view-detial.js"></script>
+    <script type="module" src="./Js/handleNavbar_Footer.js"></script>
   </body>
   <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="./Js/handleNavbar_Footer.js"></script>
 
   <script src="./Js/onScroll.js"></script>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/toastify-js"
+  ></script>
 </html>

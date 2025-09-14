@@ -1,3 +1,53 @@
+const categories = [
+  {
+    id: 1,
+    name: "Phone",
+    stock: 100,
+    description: "Smartphones and feature phones",
+  },
+  {
+    id: 2,
+    name: "Computer",
+    stock: 50,
+    description: "Laptops and desktops",
+    // img: "./image/computers-store.jpg",
+  },
+  {
+    id: 3,
+    name: "Watch",
+
+    types: [
+      {
+        id: 1,
+        name: "For man",
+      },
+      {
+        id: 2,
+        name: "For women",
+      },
+    ],
+    stock: 20,
+    description: "Smartwatches and fitness trackers",
+    // img: "./image/watch3.webp",
+  },
+  {
+    id: 4,
+    name: "Clothes",
+    types: [
+      {
+        id: 1,
+        name: "For man",
+      },
+      {
+        id: 2,
+        name: "For women",
+      },
+    ],
+    stock: 20,
+    // img: "https://cdn.shopify.com/s/files/1/1213/2346/files/1.2.jpg?v=1610121812",
+  },
+];
+
 const slides = [
   {
     id: 1,
@@ -496,4 +546,4 @@ const All_Products = [
   },
 ];
 
-export { slides, All_Products };
+export { categories, slides, All_Products };

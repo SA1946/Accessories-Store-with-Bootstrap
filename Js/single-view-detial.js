@@ -1,35 +1,4 @@
-// document.addEventListener("click", function (event) {
-//   if (event.target.classList.contains("view-detail")) {
-//     event.preventDefault();
-//     // event.stopPropagation(); // Prevent the product_model from being called
-//     const productId = event.target.getAttribute("data-product-id");
-
-//     showproductDetail(productId);
-//     // console.log(productId);
-
-//     //----close modal with Jquery----
-//     $("#view-product").modal("hide");
-//   }
-// });
-// function showproductDetail(productId) {
-//   let productFind = All_Products.find((product) => product.id == productId);
-//   if (!productFind) return;
-//   console.log(productFind);
-//   hide the maincontainer
-// const mainContainer = document.querySelector(".container");
-// mainContainer.classList.add("d-none");
-//   show the product detail container
-// let container2 = document.querySelector(".for-container-height");
-// if (!container2) {
-// container2 = document.createElement("div");
-// container2.className = "container mt-3";
-// container2.classList.add("for-container-height , container mt-3");
-// }
-//   container2.innerHTML = `
-//             <div class="row m-0 p-0">
-//         <div class="col-lg-5 col-md-12 col-12">
-//           <!------Sldier----->
-
+import showAlert from "./alert-toastify.js";
 import { All_Products } from "./data/data.js";
 
 function getUrlParameter(name) {
@@ -38,20 +7,20 @@ function getUrlParameter(name) {
   return urlParams.get(name);
 }
 
-function initializeSingleProduct() {
-  const top_single_view_product = document.querySelector(
-    ".top-single-view-product"
-  );
-  const productId = getUrlParameter("productId");
+let itemCards = JSON.parse(localStorage.getItem("card")) || [];
+const top_single_view_product = document.querySelector(
+  ".top-single-view-product"
+);
+const productId = getUrlParameter("productId");
 
-  if (productId && All_Products !== "undefined") {
-    let findProduct = All_Products.find((product) => product.id == productId);
+if (productId && All_Products !== "undefined") {
+  let findProduct = All_Products.find((product) => product.id == productId);
 
-    if (findProduct) {
-      console.log(findProduct);
-    }
+  if (findProduct) {
+    console.log(findProduct);
+  }
 
-    let top_view = `
+  let top_view = `
           
         <div class="col-lg-5 col-md-12 col-12">
           <!------Sldier----->
@@ -148,8 +117,7 @@ function initializeSingleProduct() {
               aria-label="Slide 1"
             >
               <div class="card">
-                <img src=" ${findProduct.img[0].img} " alt="" />
-                
+                <img src=" ${findProduct.img[0].img} " alt="" />                
               </div>
             </div>
             <div
@@ -203,51 +171,106 @@ function initializeSingleProduct() {
             </div>
 
             <div class="add-to-card">
-              <button class="btn btn-primary detail-add-cart">
+              <button class="btn btn-primary fw-bold detail-add-cart">
                 add to card
               </button>
             </div>
           </div>
         </div>
       
-
     `;
 
-    top_single_view_product.innerHTML = top_view;
-  }
-
-  // ------------ qty control -------------
-  const qtyInput = top_single_view_product.querySelector(".qty-input");
-  let productFind = All_Products.find((product) => product.id == productId);
-  const incrementBtn = top_single_view_product.querySelector(".increment");
-  const decrementBtn = top_single_view_product.querySelector(".decrement");
-
-  incrementBtn.addEventListener("click", () => {
-    
-    if (productFind.stock <= 0) {
-      // incrementBtn.disabled = true;
-      showAlert(productFind.name + "is out of stock", false);
-      return; // exit the function if stock is 0
-    } else if (productFind.stock <= parseInt(qtyInput.value)) {
-      showAlert(
-        productFind.name +
-          " Has only " +
-          productFind.stock +
-          " ,left in stock.",
-        false // on true or false to show alert bg color in Toastify (dak kr ban ot k ban depend on u)
-      );
-
-      return;
-    } else {
-      qtyInput.value = parseInt(qtyInput.value) + 1;
-    }
-  });
-  decrementBtn.addEventListener("click", () => {
-    if (parseInt(qtyInput.value) > 1) {
-      // if statement to prevent negative qty
-      qtyInput.value = parseInt(qtyInput.value) - 1;
-    }
-  });
+  top_single_view_product.innerHTML += top_view;
 }
 
-initializeSingleProduct();
+// ------------ qty control -------------
+const qtyInput = top_single_view_product.querySelector(".qty-input");
+let productFind = All_Products.find((product) => product.id == productId);
+const incrementBtn = top_single_view_product.querySelector(".increment");
+const decrementBtn = top_single_view_product.querySelector(".decrement");
+
+incrementBtn.addEventListener("click", () => {
+  if (productFind.stock <= 0) {
+    // incrementBtn.disabled = true;
+    showAlert(productFind.name + "is out of stock", false);
+    return; // exit the function if stock is 0
+  } else if (productFind.stock <= parseInt(qtyInput.value)) {
+    showAlert(
+      productFind.name + " Has only " + productFind.stock + " ,left in stock.",
+      false // on true or false to show alert bg color in Toastify (dak kr ban ot k ban depend on u)
+    );
+    return;
+  } else {
+    qtyInput.value = parseInt(qtyInput.value) + 1;
+  }
+});
+decrementBtn.addEventListener("click", () => {
+  if (parseInt(qtyInput.value) > 1) {
+    // if statement to prevent negative qty
+    qtyInput.value = parseInt(qtyInput.value) - 1;
+  }
+});
+addToCard(productFind, qtyInput);
+
+// console.log(itemCards);
+
+function addToCard(productFind, qtyInput) {
+  document.querySelectorAll(".add-to-card").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!checkIfProductExist(productId)) return;
+      productFind.itemCardQty = parseInt(qtyInput.value);
+
+      itemCards.push(productFind);
+      localStorage.setItem("card", JSON.stringify(itemCards));
+      showAlert(productFind.name + " has been added to your card.", true);
+      console.log(itemCards);
+      renderCard();
+    });
+  });
+}
+function checkIfProductExist(id) {
+  let productExist = itemCards.find((product) => product.id == id);
+  if (productExist) {
+    showAlert(productFind.name + " is already add to your card..", false);
+    return false;
+  } else return true;
+}
+
+function renderCard() {
+  let Cards = document.querySelector(".card-item-list");
+  let cardHtml = ``;
+  itemCards = JSON.parse(localStorage.getItem("card")) || [];
+  itemCards.map((item) => {
+    cardHtml += `
+              <div
+            class="card-item d-flex justify-content-between align-items-center mb-2"
+          >
+            <img src="${item.img[0].img} "/>
+            <p class="badge bg-secondary">$${
+              item.newPrice * item.itemCardQty
+            } </p>
+            <p> ${item.itemCardQty} </p>
+            <button onclick="removeProducts(${
+              item.id
+            })" class="btn btn-sm btn-danger ">Remove</button>
+          </div>
+    
+    `;
+  });
+  Cards.innerHTML = cardHtml;
+}
+function removeProducts(id) {
+  const removeItem = itemCards.find((product) => product.id == id);
+  if (confirm("Do you really want to remove this product ?")) {
+    itemCards = itemCards.filter((product) => product.id != id);
+    localStorage.setItem("card", JSON.stringify(itemCards));
+
+    if (removeItem) showAlert(removeItem.name + " Removed success", false);
+  }
+  renderCard();
+
+}
+document.addEventListener("DOMContentLoaded", () => {
+  renderCard();
+});
+window.removeProducts = removeProducts;

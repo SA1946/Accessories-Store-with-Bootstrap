@@ -1,55 +1,14 @@
-const categories = [
-  {
-    id: 1,
-    name: "Phone",
-    stock: 100,
-    description: "Smartphones and feature phones",
-  },
-  {
-    id: 2,
-    name: "Computer",
-    stock: 50,
-    description: "Laptops and desktops",
-    // img: "./image/computers-store.jpg",
-  },
-  {
-    id: 3,
-    name: "Watch",
-
-    types: [
-      {
-        id: 1,
-        name: "For man",
-      },
-      {
-        id: 2,
-        name: "For women",
-      },
-    ],
-    stock: 20,
-    description: "Smartwatches and fitness trackers",
-    // img: "./image/watch3.webp",
-  },
-  {
-    id: 4,
-    name: "Clothes",
-    types: [
-      {
-        id: 1,
-        name: "For man",
-      },
-      {
-        id: 2,
-        name: "For women",
-      },
-    ],
-    stock: 20,
-    // img: "https://cdn.shopify.com/s/files/1/1213/2346/files/1.2.jpg?v=1610121812",
-  },
-];
+import { categories, All_Products } from "./data/data.js";
 
 class SpecialNavbar extends HTMLElement {
   connectedCallback() {
+    // const isLoggedIn = localStorage.getItem("isLoggedIn");
+    // localStorage.setItem("isLoggedIn", "true");
+    // const loginPath = isLoggedIn ? "././loginPage.html" : "";
+    // console.log("isLoggedIn:", isLoggedIn);
+    const loginPath = "././loginPage.html";
+    console.log("Login path:", loginPath);
+
     this.innerHTML = `
             <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
@@ -100,17 +59,20 @@ class SpecialNavbar extends HTMLElement {
             <!------form search----->
             <form class="mx-auto d-md-block w-50 d-block" role="search">
               <input
+                id="search-input"
                 class="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
               />
             </form>
+             
             <!------Shop icon------>
             <div class="shop-user-icon pointer-event  d-lg-block d-md-none d-none">
-              <a target="_blank" href="./loginPage.html" class="me-3 ms-3 fs-3">
+              <a target="_blank" href="${loginPath}" class="me-3 ms-3 fs-3">
                  <i class="bi bi-person text-light"></i>
               </a>
+              
               <a
                 href=""
                 class="me-5 fs-4"
@@ -125,18 +87,18 @@ class SpecialNavbar extends HTMLElement {
         </div>
       </div>
     </nav>
+    <div id="search-results" class="search-results-container" style="display: none;"></div>
         `;
     this.relativeCategories();
-
-    // document.dispatchEvent(new CustomEvent("navbar-loaded"));
+    this.setupSearch();
   }
 
   relativeCategories() {
     // ------- categories start with navbar --------
-
     var category_block = document.querySelector(".categories-block");
+
     if (typeof categories !== "undefined") {
-      categories.map((category, index) => {
+      categories.map((category) => {
         if (category.types) {
           let dropdown_menu = ``;
           dropdown_menu += `
@@ -170,11 +132,172 @@ class SpecialNavbar extends HTMLElement {
           <a class="nav-link text-light" href=""> ${category.name} </a>
           </li>
           `;
-
           category_block.innerHTML += menu;
         }
       });
     }
+  }
+
+  setupSearch() {
+    const searchInput = this.querySelector("#search-input");
+    const resultsContainer = this.querySelector("#search-results");
+
+    // Debounce function to avoid too many searches
+    let searchTimeout;
+
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(searchTimeout);
+      const query = e.target.value.trim();
+
+      if (query.length === 0) {
+        this.hideResults(resultsContainer);
+        return;
+      }
+
+      // Debounce search for better performance
+      searchTimeout = setTimeout(() => {
+        this.performSearch(query, resultsContainer);
+      }, 300);
+    });
+
+    // Handle form submission
+    const form = this.querySelector("form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      if (query) {
+        this.performSearch(query, resultsContainer);
+      }
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!this.contains(e.target)) {
+        this.hideResults(resultsContainer);
+      }
+    });
+  }
+
+  performSearch(query, resultsContainer) {
+    const results = this.searchData(query);
+
+    this.displayResults(results, resultsContainer, query);
+  }
+
+  searchData(query) {
+    const lowerQuery = query.toLowerCase();
+    const results = [];
+
+    // Search in your data array
+    All_Products.forEach((item) => {
+      // Customize this based on your data structure
+      const searchableFields = [
+        item.category || "",
+        item.name || "",
+        item.description || "",
+        item.brand || "",
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      if (searchableFields.includes(lowerQuery)) {
+        results.push({
+          ...item,
+          relevance: this.calculateRelevance(searchableFields, lowerQuery),
+        });
+      }
+    });
+
+    // Sort by relevance
+    return results.sort((a, b) => b.relevance - a.relevance);
+  }
+
+  calculateRelevance(text, query) {
+    const matches = (text.match(new RegExp(query, "gi")) || []).length;
+    const titleBoost = text.startsWith(query) ? 2 : 1;
+    return matches * titleBoost;
+  }
+
+  displayResults(results, container, query) {
+    if (results.length === 0) {
+      container.innerHTML = `<div class="no-results">No results found for "${query}"</div>`;
+      container.style.display = "block";
+      return;
+    }
+
+    const maxResults = 5; // Limit dropdown results
+    const limitedResults = results.slice(0, maxResults);
+
+    container.innerHTML = `
+      <div class="search-dropdown">
+        ${limitedResults
+          .map(
+            (item) => `
+          <div class="search-result-item" data-id="${item.id || ""}">
+            <strong>${this.highlightMatch(
+              item.title || item.name || "",
+              query
+            )}</strong>
+            ${
+              item.description
+                ? `<div class="text-muted small">${this.highlightMatch(
+                    item.description,
+                    query
+                  )}</div>`
+                : ""
+            }
+          </div>
+        `
+          )
+          .join("")}
+        ${
+          results.length > maxResults
+            ? `<div class="text-muted small text-center">... and ${
+                results.length - maxResults
+              } more results</div>`
+            : ""
+        }
+      </div>
+    `;
+
+    container.style.display = "block";
+
+    // Add click handlers for result items
+    container.querySelectorAll(".search-result-item").forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const itemId = e.currentTarget.getAttribute("data-id");
+        this.handleResultClick(
+          itemId,
+          results.find((r) => r.id == itemId)
+        );
+      });
+    });
+  }
+
+  highlightMatch(text, query) {
+    if (!text || !query) return text;
+    const regex = new RegExp(`(${query})`, "gi");
+    return text.replace(regex, "<mark>$1</mark>");
+  }
+
+  handleResultClick(itemId, item) {
+    // Dispatch event when result is clicked
+    document.dispatchEvent(
+      new CustomEvent("search-result-clicked", {
+        detail: { itemId, item },
+      })
+    );
+
+    // Hide results
+    this.hideResults(this.querySelector("#search-results"));
+
+    // Clear search input (optional)
+    this.querySelector("#search-input").value = "";
+  }
+
+  hideResults(container) {
+    container.style.display = "none";
+    container.innerHTML = "";
   }
 }
 
@@ -272,26 +395,41 @@ class SpecialFooter extends HTMLElement {
     // document.dispatchEvent(new CustomEvent("footer-loaded"));
   }
 }
+class SpecialOffcanvas extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML += `
+        <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">
+          Your added Card
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-----List item----->
+        <div class="card-item-list"></div>
+
+        <div class="checkout">
+          <button class="btn text-light btn-secondary btn-outline-success">
+            Product Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+  }
+}
 
 customElements.define("special-footer", SpecialFooter);
 customElements.define("special-navbar", SpecialNavbar);
-
-// let componentsLoaded = {
-//   navbar: false,
-//   footer: false,
-// };
-
-// document.addEventListener("navbar-loaded", () => {
-//   componentsLoaded.navbar = true;
-//   checkAllComponentsLoaded();
-// });
-// document.addEventListener("footer-loaded", () => {
-//   componentsLoaded.navbar = true;
-//   checkAllComponentsLoaded();
-// });
-
-// function checkAllComponentsLoaded() {
-//   if (componentsLoaded.navbar) {
-//     document.dispatchEvent(new CustomEvent("all-components-ready"));
-//   }
-// }
+customElements.define("special-offcanvas", SpecialOffcanvas);

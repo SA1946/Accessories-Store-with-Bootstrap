@@ -29,43 +29,7 @@
     <special-navbar></special-navbar>
 
     <!-- offcanvas-Right-start ---->
-    <!-- <button
-      class="btn btn-primary"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasRight"
-      aria-controls="offcanvasRight"
-    >
-      Toggle right offcanvas 
-    </button> -->
-    <div
-      class="offcanvas offcanvas-end"
-      tabindex="-1"
-      id="offcanvasRight"
-      aria-labelledby="offcanvasRightLabel"
-    >
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">
-          Your added Card
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="offcanvas-body">
-        <!-----List item----->
-        <div class="card-item-list"></div>
-
-        <div class="checkout">
-          <button class="btn text-light btn-secondary btn-outline-success">
-            Product Checkout
-          </button>
-        </div>
-      </div>
-    </div>
+    <special-offcanvas></special-offcanvas>
     <!-- offcanvas-Right-end ---->
 
     <div class="for-container-height"></div>
@@ -299,7 +263,8 @@
     <!---------Footer end--------->
 
     <script type="module" src="./Js/home.js"></script>
-    <script type="module" src="./Js/single-view-detial.js"></script>
+    <!-- <script type="module" src="./Js/single-view-detial.js"></script> -->
+    <script type="module"  src="./Js/handleNavbar_Footer.js"></script>
     <script src="./Js/onScroll.js"></script>
   </body>
   <script
@@ -313,8 +278,6 @@
   <script>
     AOS.init();
   </script>
-
-  <script src="./Js/handleNavbar_Footer.js"></script>
 </html>
 <!-- Non-Module Scripts: If home.js were loaded as a regular script (<script src="home.js"> without type="module"),
    all top-level variables and functions (like product_model) would automatically be attached to the window object,
