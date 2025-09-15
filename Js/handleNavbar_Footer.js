@@ -1,4 +1,5 @@
 import { categories, All_Products } from "./data/data.js";
+import { searcHandler } from "./searchHandler.js";
 
 class SpecialNavbar extends HTMLElement {
   connectedCallback() {
@@ -21,15 +22,21 @@ class SpecialNavbar extends HTMLElement {
         </a>
         <!------Shop icon responsive------>
         <div
-          class="shop-user-icon d-flex align-items-center d-lg-none d-md-block d-block ms-auto"
+          class="shop-user-icon  d-lg-none d-md-flex d-flex ms-auto align-items-center justify-content-center "
         >
-          <!-- <i class="bi bi-shop-window text-light fs-4 me-5"></i> -->
-          <a href="" class="me-2 fs-3">
+        <a href="" class=" fs-5 "
+         data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasTop"
+          aria-controls="offcanvasTop"
+        >
+        <i class="bi bi-search text-light fs-6  fw-bold  "></i>
+          </a>
+          <a href="" class=" fs-5 mx-3 ">
             <i class="bi bi-person text-light"></i>
           </a>
           <a
             href=""
-            class="me-3 fs-4"
+            class="me-3 fs-5"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight"
@@ -49,33 +56,37 @@ class SpecialNavbar extends HTMLElement {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div
-          class="collapse navbar-collapse text-center"
+          class="collapse navbar-collapse text-center w-100 "
           id="navbarSupportedContent"
         >
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-bold">
+          <ul class="navbar-nav mb-2 mb-lg-0 fw-bold">
             <div class="categories-block d-lg-flex align-items-center"></div>
           </ul>
-          <div class="d-lg-flex align-items-center">
+          <div class=" d-lg-flex align-items-center w-75 d-md-none d-none   align-items-center ">
             <!------form search----->
-            <form class="mx-auto d-md-block w-50 d-block" role="search">
+            <form class=" fs-5 d-flex w-50 ms-auto justify-content-center align-items-center " role="search">
+              <div class=" w-100 d-flex position-relative " >
+              <i class="bi bi-search  position-absolute top-50 start-0 translate-middle-y fw-bold  ms-3 "></i>
               <input
-                id="search-input"
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
+              id="search-input"
+              class="form-control ps-5 fw-normal rounded-0 rounded-start border border-0 "
+              type="search"
+              placeholder="Search"
+              aria-label="Search"              
               />
+              </div>
+              <button class="btn  rounded-0 btn-search   rounded-end  bg-primary  text-white fw-normal" type="submit">Search</button>
             </form>
              
             <!------Shop icon------>
-            <div class="shop-user-icon pointer-event  d-lg-block d-md-none d-none">
+            <div class="shop-user-icon pointer-event d-flex justify-content-center align-items-center   ">
               <a target="_blank" href="${loginPath}" class="me-3 ms-3 fs-3">
                  <i class="bi bi-person text-light"></i>
               </a>
               
               <a
                 href=""
-                class="me-5 fs-4"
+                class=" fs-4"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasRight"
                 aria-controls="offcanvasRight"
@@ -87,10 +98,14 @@ class SpecialNavbar extends HTMLElement {
         </div>
       </div>
     </nav>
-    <div id="search-results" class="search-results-container" style="display: none;"></div>
+    <div id="search-results" class="search-results-container " style="display: none;"></div>
         `;
     this.relativeCategories();
-    this.setupSearch();
+    this.searchInput = new searcHandler(All_Products);
+
+    const searchInput = this.querySelector("#search-input");
+    const resultsContainer = this.querySelector("#search-results");
+    this.searchInput.setUpSearch(searchInput, resultsContainer);
   }
 
   relativeCategories() {
@@ -136,168 +151,6 @@ class SpecialNavbar extends HTMLElement {
         }
       });
     }
-  }
-
-  setupSearch() {
-    const searchInput = this.querySelector("#search-input");
-    const resultsContainer = this.querySelector("#search-results");
-
-    // Debounce function to avoid too many searches
-    let searchTimeout;
-
-    searchInput.addEventListener("input", (e) => {
-      clearTimeout(searchTimeout);
-      const query = e.target.value.trim();
-
-      if (query.length === 0) {
-        this.hideResults(resultsContainer);
-        return;
-      }
-
-      // Debounce search for better performance
-      searchTimeout = setTimeout(() => {
-        this.performSearch(query, resultsContainer);
-      }, 300);
-    });
-
-    // Handle form submission
-    const form = this.querySelector("form");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const query = searchInput.value.trim();
-      if (query) {
-        this.performSearch(query, resultsContainer);
-      }
-    });
-
-    // Hide results when clicking outside
-    document.addEventListener("click", (e) => {
-      if (!this.contains(e.target)) {
-        this.hideResults(resultsContainer);
-      }
-    });
-  }
-
-  performSearch(query, resultsContainer) {
-    const results = this.searchData(query);
-
-    this.displayResults(results, resultsContainer, query);
-  }
-
-  searchData(query) {
-    const lowerQuery = query.toLowerCase();
-    const results = [];
-
-    // Search in your data array
-    All_Products.forEach((item) => {
-      // Customize this based on your data structure
-      const searchableFields = [
-        item.category || "",
-        item.name || "",
-        item.description || "",
-        item.brand || "",
-      ]
-        .join(" ")
-        .toLowerCase();
-
-      if (searchableFields.includes(lowerQuery)) {
-        results.push({
-          ...item,
-          relevance: this.calculateRelevance(searchableFields, lowerQuery),
-        });
-      }
-    });
-
-    // Sort by relevance
-    return results.sort((a, b) => b.relevance - a.relevance);
-  }
-
-  calculateRelevance(text, query) {
-    const matches = (text.match(new RegExp(query, "gi")) || []).length;
-    const titleBoost = text.startsWith(query) ? 2 : 1;
-    return matches * titleBoost;
-  }
-
-  displayResults(results, container, query) {
-    if (results.length === 0) {
-      container.innerHTML = `<div class="no-results">No results found for "${query}"</div>`;
-      container.style.display = "block";
-      return;
-    }
-
-    const maxResults = 5; // Limit dropdown results
-    const limitedResults = results.slice(0, maxResults);
-
-    container.innerHTML = `
-      <div class="search-dropdown">
-        ${limitedResults
-          .map(
-            (item) => `
-          <div class="search-result-item" data-id="${item.id || ""}">
-            <strong>${this.highlightMatch(
-              item.title || item.name || "",
-              query
-            )}</strong>
-            ${
-              item.description
-                ? `<div class="text-muted small">${this.highlightMatch(
-                    item.description,
-                    query
-                  )}</div>`
-                : ""
-            }
-          </div>
-        `
-          )
-          .join("")}
-        ${
-          results.length > maxResults
-            ? `<div class="text-muted small text-center">... and ${
-                results.length - maxResults
-              } more results</div>`
-            : ""
-        }
-      </div>
-    `;
-
-    container.style.display = "block";
-
-    // Add click handlers for result items
-    container.querySelectorAll(".search-result-item").forEach((item) => {
-      item.addEventListener("click", (e) => {
-        const itemId = e.currentTarget.getAttribute("data-id");
-        this.handleResultClick(
-          itemId,
-          results.find((r) => r.id == itemId)
-        );
-      });
-    });
-  }
-
-  highlightMatch(text, query) {
-    if (!text || !query) return text;
-    const regex = new RegExp(`(${query})`, "gi");
-    return text.replace(regex, "<mark>$1</mark>");
-  }
-
-  handleResultClick(itemId, item) {
-    // Dispatch event when result is clicked
-    document.dispatchEvent(
-      new CustomEvent("search-result-clicked", {
-        detail: { itemId, item },
-      })
-    );
-
-    // Hide results
-    this.hideResults(this.querySelector("#search-results"));
-
-    // Clear search input (optional)
-    this.querySelector("#search-input").value = "";
-  }
-
-  hideResults(container) {
-    container.style.display = "none";
-    container.innerHTML = "";
   }
 }
 
@@ -395,7 +248,7 @@ class SpecialFooter extends HTMLElement {
     // document.dispatchEvent(new CustomEvent("footer-loaded"));
   }
 }
-class SpecialOffcanvas extends HTMLElement {
+class SpecialOffcanvasRight extends HTMLElement {
   connectedCallback() {
     this.innerHTML += `
         <div
@@ -430,6 +283,38 @@ class SpecialOffcanvas extends HTMLElement {
   }
 }
 
+class SpecialOffcanvasTop extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML += `
+  <div class="offcanvas h-100  offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title text-primary fw-bold fs-3 mt-3 mx-auto" id="offcanvasTopLabel"> Find Your Devices </h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+            <form class=" mx-5 fs-5 d-flex  justify-content-center align-items-center " role="search">
+              <div class=" w-100 d-flex position-relative " >
+              <i class="bi bi-search  position-absolute top-50 start-0 translate-middle-y fw-bold  ms-3 "></i>
+              <input
+              id="search-input"
+              class=" py-4  form-control ps-5 fw-normal rounded-5  border border-2 border-primary "
+              type="search"
+              placeholder="Search for products..."
+              aria-label="Search"              
+              />
+              </div>
+              
+            </form>
+            <div id="search-results-top" class="w-100 search-results-container-top " style="display: none;"></div>
+            </div>
+    `;
+
+    this.searchInput = new searcHandler(All_Products);
+    const Input = this.querySelector("#search-input");
+    const results = this.querySelector("#search-results-top");
+    this.searchInput.setUpSearch(Input, results);
+  }
+}
 customElements.define("special-footer", SpecialFooter);
 customElements.define("special-navbar", SpecialNavbar);
-customElements.define("special-offcanvas", SpecialOffcanvas);
+customElements.define("special-offcanvas-right", SpecialOffcanvasRight);
+customElements.define("special-offcanvas-top", SpecialOffcanvasTop);

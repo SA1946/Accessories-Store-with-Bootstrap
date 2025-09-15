@@ -514,9 +514,9 @@ const All_Products = [
   },
   {
     id: 15,
-    category: "Analog Watch ",
+    category: "Analog Watch",
     name: "Carlington Elite Ladies",
-    brand: "apple",
+    brand: "Carlington",
 
     stock: 5,
     img: [

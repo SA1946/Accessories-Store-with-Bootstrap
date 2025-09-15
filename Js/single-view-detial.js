@@ -3,6 +3,9 @@ import { All_Products } from "./data/data.js";
 
 function getUrlParameter(name) {
   const urlParams = new URLSearchParams(window.location.search);
+  // window.location.search
+  // returns "?productId=123"
+
   console.log(urlParams);
   return urlParams.get(name);
 }
@@ -268,9 +271,63 @@ function removeProducts(id) {
     if (removeItem) showAlert(removeItem.name + " Removed success", false);
   }
   renderCard();
-
 }
 document.addEventListener("DOMContentLoaded", () => {
   renderCard();
 });
+
+function productDetail() {
+  const product_detail = document.querySelector(".product-detial");
+  product_detail.innerHTML += ` 
+  <span class=" ms-4 fw-bold fs-5 " >
+  ${productFind.name} 
+  </span>
+  <span class=" fw-normal fs-5 lh-lg  " >
+  
+  ${productFind.description}
+  </span>
+  
+  `;
+}
+productDetail();
+
+function relatedProduct() {
+  const related_product = document.querySelector(".related-product .row");
+  const findRetalive = All_Products.filter(
+    (product) =>
+      (product.category == productFind.category && product.id != productId) ||
+      (product.brand == productFind.brand && product.id != productId)
+  );
+  related_product.innerHTML = ``;
+
+  if (findRetalive.length === 0) {
+    related_product.innerHTML =
+      '<p class="text-center">No related products found</p>';
+    return;
+  }
+
+  findRetalive.forEach((product) => {
+    let productHTML = `
+      <!------one product----->          
+              <div 
+                 data-aos="fade-up" 
+                 data-aos-anchor-placement="top-center"
+                  class="col-lg-3 col-md-4 col-md-4 col-6 my-2">
+                <div class="card shadow-sm">  
+                  <img 
+                      onclick="window.location.href = './single-view-detail.html?productId=${product.id}' "                                    
+                        src="${product.img[0].img}" alt="" />
+                  <div class="card-body ">
+                    <h5 class=" fs-6 " >${product.name}</h5>
+                    <del class="text-danger">$${product.oldPrice}</del>
+                    <span class="text-black fw-bold">$${product.newPrice}</span>
+                  </div>
+                </div>
+              </div>
+      `;
+    related_product.innerHTML += productHTML;
+  });
+}
+relatedProduct();
+
 window.removeProducts = removeProducts;

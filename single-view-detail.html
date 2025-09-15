@@ -27,11 +27,21 @@
     <special-navbar></special-navbar>
 
     <!-- offcanvas-Right-start ---->
-    <special-offcanvas></special-offcanvas>
+    <special-offcanvas-right></special-offcanvas-right>
+    <special-offcanvas-top></special-offcanvas-top>
     <!-- offcanvas-Right-end ---->
 
     <!------Container-start------>
     <div class="container mt-5 pt-5 mb-5">
+      <div class="fs-5 mb-3">
+        <a
+          class="text-muted d-flex gap-1 align-items-center"
+          href="./index.html"
+        >
+          <i class="bi bi-arrow-left"></i>
+          back home
+        </a>
+      </div>
       <!--------------View-detail-start------------->
       <div class="row m-0 p-0 top-single-view-product"></div>
       <!---------------View-detail-end-------------->
@@ -77,14 +87,7 @@
             tabindex="0"
           >
             <h3>Product-Detail</h3>
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Asperiores dolorem minus, sequi sit hic alias deserunt quaerat
-              quam fugit fugiat laborum provident tempora totam cupiditate quas
-              ullam doloribus. Expedita, delectus. Lorem ipsum dolor sit amet
-              consectetur, adipisicing elit. Architecto, illo. Tenetur, ipsa
-              nemo facilis doloremque sunt natus accusamus cum nostrum?
-            </p>
+            <p class="product-detial"></p>
           </div>
           <div
             class="tab-pane fade p-3"
@@ -203,8 +206,11 @@
 
       <!----related product start---->
       <div class="related-product">
-        <div class="row p-0 m-0 product">
-          <!------one product----->
+        <div class="text-center mb-4">
+          <h4>Related <span class="related-products-style">Products</span></h4>
+        </div>
+        <div class="row p-0 m-0">
+          <!-- ----one product--- -->
           <div class="col-lg-3 col-md-4 col-md-4 col-6 my-2">
             <div class="card shadow-sm">
               <!------product image----->
@@ -215,81 +221,6 @@
                 <h5>Iphone 16 Plus clear case with Magsafe</h5>
                 <del class="badge bg-danger">$1400</del>
                 <span class="badge bg-success">$1000</span>
-              </div>
-              <div class="detail d-flex justify-content-center">
-                <i class="bi bi-heart"></i>
-                <i
-                  data-bs-toggle="modal"
-                  data-bs-target="#view-product"
-                  class="bi bi-search"
-                ></i>
-                <i class="bi bi-bookmarks"></i>
-              </div>
-            </div>
-          </div>
-          <!------one product----->
-          <div class="col-lg-3 col-md-4 col-6 my-2">
-            <div class="card shadow-sm">
-              <!------product image----->
-              <img
-                src="./image/iphone16 plus-Silicone-case-wth-Magesafe.png"
-                alt=""
-              />
-
-              <!------product body---->
-              <div class="card-body">
-                <h5>Iphone 16 Plus Silicone case Magesafe</h5>
-                <del class="badge bg-danger">$1600</del>
-                <span class="badge bg-success">$1200</span>
-              </div>
-              <div class="detail d-flex justify-content-center">
-                <i class="bi bi-heart"></i>
-                <i
-                  data-bs-toggle="modal"
-                  data-bs-target="#view-product"
-                  class="bi bi-search"
-                ></i>
-                <i class="bi bi-bookmarks"></i>
-              </div>
-            </div>
-          </div>
-          <!------one product----->
-          <div class="col-lg-3 col-md-4 col-md-4 col-6 my-2">
-            <div class="card shadow-sm">
-              <!------product image----->
-              <img src="./image/iphone16plus.png" alt="" />
-
-              <!------product body---->
-              <div class="card-body">
-                <h5>Iphone 16 Plus clear case with Magsafe</h5>
-                <del class="badge bg-danger">$1400</del>
-                <span class="badge bg-success">$1000</span>
-              </div>
-              <div class="detail d-flex justify-content-center">
-                <i class="bi bi-heart"></i>
-                <i
-                  data-bs-toggle="modal"
-                  data-bs-target="#view-product"
-                  class="bi bi-search"
-                ></i>
-                <i class="bi bi-bookmarks"></i>
-              </div>
-            </div>
-          </div>
-          <!------one product----->
-          <div class="col-lg-3 col-md-4 col-6 my-2">
-            <div class="card shadow-sm">
-              <!------product image----->
-              <img
-                src="./image/iphone16 plus-Silicone-case-wth-Magesafe.png"
-                alt=""
-              />
-
-              <!------product body---->
-              <div class="card-body">
-                <h5>Iphone 16 Plus Silicone case Magesafe</h5>
-                <del class="badge bg-danger">$1600</del>
-                <span class="badge bg-success">$1200</span>
               </div>
               <div class="detail d-flex justify-content-center">
                 <i class="bi bi-heart"></i>
@@ -331,7 +262,7 @@
       <!--------Contact us-end-------->
 
       <!------Modal------->
-      <div
+      <!-- <div
         class="modal fade"
         id="view-product"
         tabindex="-1"
@@ -341,9 +272,6 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header border-bottom-0">
-              <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">
-                    Iphone 16 Plus
-                  </h1> -->
               <button
                 type="button"
                 class="btn-close shadow-none"
@@ -391,20 +319,10 @@
               </div>
             </div>
             <div class="modal-footer d-lg-block d-md-block d-none border-top-0">
-              <!-- <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">
-                    Save changes
-                  </button> -->
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!------Container-end------>
