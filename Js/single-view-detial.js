@@ -23,8 +23,7 @@ if (productId && All_Products !== "undefined") {
     console.log(findProduct);
   }
 
-  let top_view = `
-          
+  let top_view = `        
         <div class="col-lg-5 col-md-12 col-12">
           <!------Sldier----->
           <div
@@ -66,22 +65,23 @@ if (productId && All_Products !== "undefined") {
                 aria-label="Slide 5"
               ></button>
             </div> -->
-            <div class="carousel-inner carousel-customize shadow-sm">
-              <div class="carousel-item active" data-bs-interval="5000">
+          <div class="carousel-inner carousel-customize shadow-sm">
+            ${findProduct.img
+              .map(
+                (image, index) => `
+              <div class="carousel-item ${
+                index === 0 ? "active" : ""
+              }" data-bs-interval="5000">
                 <img
-                  src="${findProduct.img[0].img}"
+                  src="${image.img}"
                   class="d-block w-100"
-                  alt="..."
+                  alt="Product image ${index + 1}"
                 />
               </div>
-              <div class="carousel-item  data-bs-interval="5000">
-                <img
-                  src="${findProduct.img[1].img}"
-                  class="d-block w-100"
-                  alt="..."
-                />
-              </div>
-            </div>
+            `
+              )
+              .join(" ")}
+          </div>
             <button
               class="carousel-control-prev"
               type="button"
@@ -111,33 +111,27 @@ if (productId && All_Products !== "undefined") {
           <!----small-slider---->
 
           <div class="row p-0 m-0 mt-2 small-slider">
-            <div
-              class="col-2 small-product m-0 p-1 active"
-              type="button"
-              data-bs-target="#carouselExampleDark"
-              data-bs-slide-to="0"
-              aria-current="true"
-              aria-label="Slide 1"
-            >
-              <div class="card">
-                <img src=" ${findProduct.img[0].img} " alt="" />                
-              </div>
+            ${findProduct.img
+              .map(
+                (sImage, index) => `  
+                <div
+                class="col-2 small-product m-0 p-1  ${
+                  index === 0 ? "active" : ""
+                } "
+                type="button"
+                data-bs-target="#carouselExampleDark"
+                data-bs-slide-to=" ${index} "
+                 aria-current="${index === 0 ? "true" : "false"}"
+                aria-label="Slide ${index + 1} "
+                >
+                  <div class="card">
+                  <img src="${sImage.img}" alt=" SImage ${index + 1} " />
+                  </div>
+                </div>
+              `
+              )
+              .join("")}
             </div>
-            <div
-              class="col-2 small-product m-0 p-1 active"
-              type="button"
-              data-bs-target="#carouselExampleDark"
-              data-bs-slide-to="1"
-              aria-current="true"
-              aria-label="Slide 2"
-            >
-              <div class="card">
-                <img src=" ${findProduct.img[1].img} " alt="" />
-                
-              </div>
-            </div>
-
-          </div>
         </div>
         <!--------detail about phone----->
         <div class="col-lg-7 col-md-12 col-12 detail-single-view">
@@ -159,8 +153,12 @@ if (productId && All_Products !== "undefined") {
             <div class="color-check d-flex align-items-center">
               <h5 class="opacity-75">Color :</h5>
               <div class="row p-0 m-0 ms-2">
-                <div class="color col-lg-1 col-1 bg-${findProduct.color[0].color}"></div>
-                <div class="color col-lg-1 col-1 bg-${findProduct.color[1].color}"></div>    
+                <div class="color border border-2  col-lg-1 col-1 bg-${
+                  findProduct.color[0].color
+                }"></div>
+                <div class="color  border border-2  col-lg-1 col-1 bg-${
+                  findProduct.color[1].color
+                }"></div>    
               </div>
             </div>
 
@@ -272,6 +270,7 @@ function removeProducts(id) {
   }
   renderCard();
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   renderCard();
 });
@@ -282,7 +281,7 @@ function productDetail() {
   <span class=" ms-4 fw-bold fs-5 " >
   ${productFind.name} 
   </span>
-  <span class=" fw-normal fs-5 lh-lg  " >
+  <span class=" fw-normal fs-6 lh-lg  " >
   
   ${productFind.description}
   </span>

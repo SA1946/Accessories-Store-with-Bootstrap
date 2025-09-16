@@ -24,7 +24,7 @@ slides.map((value, index) => {
 
 var products = document.querySelector(".products");
 if (products) {
-  All_Products.slice(0, 15).map((value) => {
+  All_Products.slice(0, 19).map((value) => {
     let productHtml = `
               <div 
                  data-aos="fade-up" 

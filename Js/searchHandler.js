@@ -97,7 +97,7 @@ export class searcHandler {
       return;
     }
 
-    const maxResults = 6; 
+    const maxResults = 6;
     const limitedResults = results.slice(0, maxResults);
 
     resultsContainer.innerHTML = `
@@ -105,21 +105,26 @@ export class searcHandler {
         ${limitedResults
           .map(
             (item) => `
-          <div class="search-result-item d-flex justify-content-between   align-items-center" data-id="${
+          <div class="search-result-item d-flex justify-content-between  align-items-center" data-id="${
             item.id || ""
-          }">
-            <div>
+          }"
+          onclick="window.location.href = './single-view-detail.html?productId=${
+            item.id
+          }' "                                    
+          >
+            <div
+            >
                         <img class=" searchOutput "  src="${item.img[0].img}" />
             <strong>${this.highlightMatch(item.name || "", query)}</strong>
             </div>
             <div class=" d-flex flex-column " >
-            <del class=" fw-light "  > $${item.oldPrice} </del>
+            <del class=" fw-light text-danger "  > $${item.oldPrice} </del>
             <p class=" fw-bold "  > $${item.newPrice} </p>
             </div>
           </div>
         `
           )
-          .join("")}
+          .join(" ")}
         ${
           results.length > maxResults
             ? `<div class="text-muted small text-center">... and ${
@@ -162,7 +167,7 @@ export class searcHandler {
     );
 
     // Hide results
-    this.hideResults(resultsContainer);    
+    this.hideResults(resultsContainer);
     this.searchInput.value = "";
   }
 

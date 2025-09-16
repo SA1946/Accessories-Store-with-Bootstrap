@@ -521,3 +521,7 @@ a {
   color: gold;
   cursor: pointer;
 }
+
+.dropdown-item:active {
+  background-image: linear-gradient(355deg, #0094e9a0 0%, #bababa 100%);
+}

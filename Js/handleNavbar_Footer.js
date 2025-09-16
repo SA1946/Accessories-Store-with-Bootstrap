@@ -113,8 +113,10 @@ class SpecialNavbar extends HTMLElement {
     var category_block = document.querySelector(".categories-block");
 
     if (typeof categories !== "undefined") {
+      // typeof categories return obj
       categories.map((category) => {
         if (category.types) {
+          // console.log(category.types);
           let dropdown_menu = ``;
           dropdown_menu += `
           <li class="nav-item dropdown">
@@ -130,7 +132,12 @@ class SpecialNavbar extends HTMLElement {
 
           category.types.map((type) => {
             dropdown_menu += `
-            <li><a class="dropdown-item" href="">${type.name} </a></li>
+            <li>
+            
+            <button class="dropdown-item border border-0  text-secondary  " 
+          onclick="window.location.href = './product.html?productId=${category.name}-${type.audience}' "                                    
+          > ${type.audience} </button>
+            </li>
             `;
           });
 
@@ -144,7 +151,10 @@ class SpecialNavbar extends HTMLElement {
           let menu = ``;
           menu += `
           <li class="nav-item">
-          <a class="nav-link text-light" href=""> ${category.name} </a>
+          <!--<a class="nav-link text-light" href=""> ${category.name} </a>-->
+          <button class=" border border-0 bg-transparent text-white fw-bold  " 
+          onclick="window.location.href = './product.html?productId=${category.name}' "                                    
+          > ${category.name}  </button>
           </li>
           `;
           category_block.innerHTML += menu;
@@ -155,6 +165,7 @@ class SpecialNavbar extends HTMLElement {
 }
 
 class SpecialFooter extends HTMLElement {
+  btn;
   connectedCallback() {
     this.innerHTML = `
                 <div class="footer">

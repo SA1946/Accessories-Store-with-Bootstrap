@@ -2,49 +2,40 @@ const categories = [
   {
     id: 1,
     name: "Phone",
-    stock: 100,
-    description: "Smartphones and feature phones",
   },
   {
     id: 2,
     name: "Computer",
-    stock: 50,
-    description: "Laptops and desktops",
-    // img: "./image/computers-store.jpg",
   },
   {
     id: 3,
     name: "Watch",
-
+    category: "watch",
     types: [
       {
         id: 1,
-        name: "For man",
+        audience: "For_men",
       },
       {
         id: 2,
-        name: "For women",
+        audience: "For_women",
       },
     ],
-    stock: 20,
-    description: "Smartwatches and fitness trackers",
-    // img: "./image/watch3.webp",
   },
   {
     id: 4,
     name: "Clothes",
+    category: "clothes",
     types: [
       {
         id: 1,
-        name: "For man",
+        audience: "For_men",
       },
       {
         id: 2,
-        name: "For women",
+        audience: "For_women",
       },
     ],
-    stock: 20,
-    // img: "https://cdn.shopify.com/s/files/1/1213/2346/files/1.2.jpg?v=1610121812",
   },
 ];
 
@@ -482,10 +473,10 @@ const All_Products = [
   },
   {
     id: 14,
-    category: "iwatch",
+    category: "watch",
     name: "Apple Watch Ultra 2 with Ocean Band",
     brand: "apple",
-
+    audience: "for_men",
     stock: 5,
     img: [
       {
@@ -514,10 +505,10 @@ const All_Products = [
   },
   {
     id: 15,
-    category: "Analog Watch",
+    category: "watch",
     name: "Carlington Elite Ladies",
     brand: "Carlington",
-
+    audience: "for_women",
     stock: 5,
     img: [
       {
@@ -543,6 +534,142 @@ const All_Products = [
     newPrice: 11.71,
     description:
       "Carlington Elite's CT2007 watch is a stylish accessory for any woman. Featuring a self-adjustable mesh strap and 10 ATM water-resistant construction, this watch is perfect for everyday wear and offers superior reliability. With its classic analog design, this watch is sure to turn heads.",
+  },
+  {
+    id: 16,
+    category: "clothes",
+    name: "Relaxed Long Sleeves",
+    brand: "Polo",
+    audience: "for_men",
+    stock: 50,
+    img: [
+      {
+        id: 1,
+        img: "./image/clothes1.jpg",
+      },
+      {
+        id: 2,
+        img: "./image/clothes1_1.jpg",
+      },
+    ],
+    color: [
+      {
+        id: 1,
+        color: "white",
+      },
+      {
+        id: 2,
+        color: "black",
+      },
+    ],
+    oldPrice: 12.59,
+    newPrice: 10.07,
+    description:
+      "features a looser, less fitted cut than a standard long sleeve, providing more room and freedom of movement for maximum comfort, often with a focus on breathability and softness. It can be a versatile wardrobe staple, transitioning from casual wear like lounging or running errands to more active uses such as workouts, and can be layered with other clothing items.",
+  },
+  {
+    id: 16,
+    category: "clothes",
+    name: "Regular T-Shirts",
+    brand: "Polo",
+    audience: "for_men",
+    stock: 50,
+    img: [
+      {
+        id: 1,
+        img: "./image/clothes2.jpg",
+      },
+      {
+        id: 2,
+        img: "./image/clothes2_1.jpg",
+      },
+    ],
+    color: [
+      {
+        id: 1,
+        color: "navy",
+      },
+      {
+        id: 2,
+        color: "black",
+      },
+    ],
+    oldPrice: 14.59,
+    newPrice: 13.59,
+    description:
+      "a relaxed, non-fitted silhouette that prioritizes comfort for everyday wear, with loose sleeves and a less form-fitting waist and chest.",
+  },
+  {
+    id: 17,
+    category: "clothes",
+    name: "Drape High-Neck Top",
+    brand: "ASOS DESIGN",
+    audience: "for_women",
+    stock: 10,
+    img: [
+      {
+        id: 1,
+        img: "./image/clothes4.jpg",
+      },
+      {
+        id: 2,
+        img: "./image/clothes4_1.jpg",
+      },
+    ],
+    color: [
+      {
+        id: 1,
+        color: "white",
+      },
+      {
+        id: 2,
+        color: "black",
+      },
+    ],
+    oldPrice: 56.09,
+    newPrice: 50.19,
+    description:
+      "a neckline characterized by a high collar that drapes elegantly on the body, offering a sophisticated and graceful aesthetic, rather than a stiff, structured one.",
+  },
+  {
+    id: 18,
+    category: "clothes",
+    name: "Midi Dresses",
+    brand: " Dolce & Gabbana",
+    audience: "for_women",
+    stock: 4,
+    img: [
+      {
+        id: 1,
+        img: "./image/clothes5.jpg",
+      },
+      {
+        id: 2,
+        img: "./image/clothes5_1.jpg",
+      },
+      {
+        id: 2,
+        img: "./image/clothes5_2.jpg",
+      },
+      {
+        id: 2,
+        img: "./image/clothes5_3.jpg",
+      },
+    ],
+    color: [
+      {
+        id: 1,
+        color: "white",
+      },
+      {
+        id: 2,
+        color: "black",
+      },
+    ],
+    oldPrice: 59.96,
+    newPrice: 58.96,
+    description:
+      "a dress with a hemline that falls between the knee and the ankle, typically hitting at the mid-calf or just above the ankle.",
   },
 ];
 
